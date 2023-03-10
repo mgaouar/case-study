@@ -63,6 +63,8 @@ Company B has Android clients + their back-end
  - Change Android client to communicate with company A back-end in their formats
  - Reduce feature gap
 
+![Proxy Setup](images/case-study-2.jpg)
+
 3- Cloud based architecture
  - Autoscalling
  - Multiregion redundancy
