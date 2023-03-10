@@ -5,6 +5,8 @@
 Company A has iOS + Web clients + their back-end
 Company B has Android clients + their back-end
 
+![Current Products](images/case-study.jpg)
+
 ## Future load
 
 100X increase and growth of users and traffic over the next 3 years
