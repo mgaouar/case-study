@@ -64,9 +64,12 @@ Company B has Android clients + their back-end
  - Reduce feature gap
 
 ![Proxy Setup](images/case-study-2.jpg)
+![Proxy Setup](images/case-study-3.jpg)
+![Proxy Setup](images/case-study-4.jpg)
 
 3- Cloud based architecture
- - Autoscalling
+ - Containerise the application
+ - Use K8S or AWS ECS as container orchestration and autoscalling
  - Multiregion redundancy
  - 99.9% availability (target)
  - Microservice and event driven architecture
