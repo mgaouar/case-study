@@ -43,7 +43,7 @@ Company B has Android clients + their back-end
 
 # Assessment and approach (1)
 
-## Priorities
+## Priorities and timelines
 
 1- Fix service outages: 
  - Increase Observability, latency metrics, improve logs when there are errors
@@ -64,8 +64,8 @@ Company B has Android clients + their back-end
  - Reduce feature gap
 
 ![Proxy Setup](images/case-study-2.jpg)
-![Proxy Setup](images/case-study-3.jpg)
-![Proxy Setup](images/case-study-4.jpg)
+![Data Migration](images/case-study-3.jpg)
+![Android client Migration](images/case-study-4.jpg)
 
 3- Cloud based architecture
  - Containerise the application
@@ -73,9 +73,6 @@ Company B has Android clients + their back-end
  - Multiregion redundancy
  - 99.9% availability (target)
  - Microservice and event driven architecture
-
-
-## Timeline
 
 # Day to day priorities (2)
 
@@ -88,19 +85,89 @@ Company B has Android clients + their back-end
 
 # Architecture (3)
 
+![Architecture Diagram](images/case-study-5.jpg)
+
 ## Evolution of the architecture
 
-- Diagram for the current situation
-- Feature analysis and feature gap
+- Make the smallest steps possible toward the goal architecture
+- Always maintain a continuation of the service
+- Fix current problems and leverage horizontale scalling capabilities
+- Introduce a proxy that can act as a translator between the two systems
 - Data migration plan, replicate and adapt data from company B to fit in company A data model (use AWS DMS)
 - Write an Android http client to interact with company A back-end
 - Make Android use the same back-end and data model as iOS Web, feature flag to toggle between back-ends in case of problems
+- Split the monolith into Microservices and leverage cloud provider services
 
 # Engineering excellence (4)
 
 ## Architecture design patterns
 
-## Engineering excellence criteria and how to maintain them
+We will move toward a Domain Driven Architecture, using Microservices for processing requests and data manipulation.
+
+We will use event driven compute as well to notify and process incoming and outgoing messages.
+
+## Engineering excellence criteria
+
+### Quality
+
+Unit tests cover 70 to 80% of the code bases.
+Integration tests cover all API endpoints or input/output testing (Asynch service).
+End to End test cover all user flows and are documented and maintained.
+Regression tests run at every deployment on the Green and Blue stack.
+Quality Dashboard is setup for each service.
+
+### System Availability
+
+SLA Definition (Uptime 99.9%, request time) 
+SLO List and definition
+Dashboard with each SLIs and have an aggregation of general service availability
+Error budget consumption
+
+### Security
+
+Third party Libraries scanning is setup
+Process to resolve to fix faulty dependencies is followed (3 days for critical fix, 7 days for medium, 30 days for minor fix)
+No secret is stored in Git
+Secret storage is setup per environment
+Secrets are rotated every quarter
+Penetration tests are done quarterly
+Penetration tests vulnerabilities are fixed in a timely manner (Critical is a P1, High 7 days, Medium 30 days, Low 90 days)
+
+### Automated Deployments
+
+All repos have a CI (Continuous Integration) pipeline
+We have a CD (Continuous Delivery) pipeline
+We are able to deploy a specific branch in a temporary environment for feature testing
+Main branch always creates or deploys an artifact
+We promote artifacts from main branch to higher environment (no new builds)
+Our deployments are done without interruption (Blue/Green)
+We support Multi-region deployments (in the future)
+All production deployments are logged in Zendesk
+Turn off monitoring when deploying a new version to avoid false alerts
+Dashboard for DORA metrics
+
+### Observability
+
+All services are logging to Datadog per environment
+All logs with error level should have alerts in Datadog and should be prioritized (P1, P2, P3) for paging
+All services must have distributed tracing setup
+Setup custom metrics for Asynchronous services (StatsD, Prometheus, Grafana)
+Dashboard for Load Balancer metrics for all REST end points of the service
+Dashboard for Custom Metrics metrics
+
+### Documentation
+
+All repository have a README file
+README contains how to run the service locally and on lower environments
+README contains how to build the service
+All repositories have a Github template for pull requests
+Service and library owners are identified in README
+All API end points are documented following OpenAPI standards
+All the code is documented with JSDoc
+All Architecture documentation is updated and maintained per service
+All user journeys are documented and updated
+All configurations are documented
+Service Run book is updated and maintained
 
 # Ensure alignement (5)
 
