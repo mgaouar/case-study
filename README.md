@@ -3,6 +3,7 @@
 ## Current products
 
 Company A has iOS + Web clients + their back-end
+
 Company B has Android clients + their back-end
 
 ![Current Products](images/case-study.jpg)
@@ -30,13 +31,14 @@ Company B has Android clients + their back-end
 ## Assumptions
 
 - The team is fully loaded (what do we mean by fully loaded) but have the ability to obtain resources.
-- System is overloaded
-- Not on the cloud? On premise or hosted?
+- System is overloaded (latency and errors)
+- The systems are not on the cloud, they are either on premise or hosted.
 - The team is available but we should be careful staffing
-- Compose with experts from company A and company B and work with them to constitute and core team
-- We want to keep company A datamodel if better
+- Compose a team with experts from company A and company B and work with them to constitute and core team
+- We want to keep company A datamodel if better and also because we have two platforms already done.
 - We want to reduce UI components rewrites
-- The current implementation of the back-end is a monolith
+- The features of both systems overlap
+- The current implementation of the back-end is a monolith for both
 
 
 # Assessment and approach (1)
@@ -44,14 +46,18 @@ Company B has Android clients + their back-end
 ## Priorities
 
 1- Fix service outages: 
- - In crease Observability
- - Focus on bugs that eat all error budget
+ - Increase Observability, latency metrics, improve logs when there are errors
+ - Focus on bugs that consume most of the error budget
  - Measure latency metrics (CPU, memory, network, Database, caching) before and after fixes
- - Can we do vertical scalling? Increase CPU, memory, SSD drives.
+ - Vertical scalling: Increase CPU, memory, SSD drives.
+ - Have multiple instances of the servers running and put them behind a Load Balancer (nginx as an example)
  - Read/write replicas for the DB
  - Increase unit test coverage for each bug fixed (if necessary)
 
+![Fix Service Outages](images/case-study-1.jpg)
+
 2- Communication between the two platforms
+ - Move servers into a Cloud Provider (AWS for example)
  - Proxy that adapts the data between the two systems with minimum functionality
  - Data migration (users, messages)
  - Change Android client to communicate with company A back-end in their formats
